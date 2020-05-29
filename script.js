@@ -53,45 +53,60 @@ function updateValue(key, value) {
   return arguments.callee;
 })("minutes")("seconds");
 
-
-function startTimer(){
-    buttonManager(["start", false], ["pause", true], ["stop", true]);
-    freezeInputs();
+function startTimer() {
+  buttonManager(["start", false], ["pause", true], ["stop", true]);
+  freezeInputs();
+  timerObj.timerId = setInterval(function () {
+    timerObj.seconds--;
+    if (timerObj.seconds < 0) {
+      if (timerObj.minutes == 0) {
+        soundAlarm();
+        return stopTimer;
+      }
+      timerObj.seconds = 59;
+      timerObj.minutes--;
+    }
+    updateValue("minutes", timerObj.minutes);
+    updateValue("seconds", timerObj.seconds);
+  }, 1000);
 }
 
-
-function stopTimer(){
-    buttonManager(["start", true], ["pause", false], ["stop", false]);
-    unfreezeInputs();
+function stopTimer() {
+  clearInterval(timerObj.timerId);
+  buttonManager(["start", true], ["pause", false], ["stop", false]);
+  unfreezeInputs();
+  updateValue("minutes", $("#minutes-input").val());
+  updateValue("seconds", $("#seconds-input").val());
+  // If the seconds is falsy, or undefined, set seconds to "0". Just 1 zero because line 29 checks if the value is less than 10, and if it is it will add an extra zero for you.
+  // The seconds will by default be undefined.  Expliclty setting the seconds to 0 will prevent formats such as 1:0 or 2:0 when the timer expires, where the correct format should be 1:00 or 2:00.
+  let seconds = $("#seconds-input").val() || "0";
+  updateValue("seconds", seconds);
 }
 
-
-function pauseTimer(){
-    buttonManager(["start", true], ["pause", false], ["stop", true]);
-    
+function pauseTimer() {
+  buttonManager(["start", true], ["pause", false], ["stop", true]);
+  clearInterval(timerObj.timerId);
 }
 
-['start', true], ['stop', ]
+["start", true], ["stop"];
 
 //this is rest operator
-function buttonManager(...buttonsArray){
-  for(let i = 0; i<buttonsArray.length; i++){
-      let button = "#" + buttonsArray[i][0] + "-button";
-      if(buttonsArray[i][1]){
-          $(button).removeAttr("disabled");
-      }else{
-          $(button).attr("disabled", "disabled");
-      }
+function buttonManager(...buttonsArray) {
+  for (let i = 0; i < buttonsArray.length; i++) {
+    let button = "#" + buttonsArray[i][0] + "-button";
+    if (buttonsArray[i][1]) {
+      $(button).removeAttr("disabled");
+    } else {
+      $(button).attr("disabled", "disabled");
+    }
   }
 }
 
-function freezeInputs(){
+function freezeInputs() {
   $("#minutes-input").attr("disabled", "disabled");
   $("#seconds-input").attr("disabled", "disabled");
-
 }
-function unfreezeInputs(){
+function unfreezeInputs() {
   $("#minutes-input").removeAttr("disabled");
   $("#seconds-input").removeAttr("disabled");
 }
-
