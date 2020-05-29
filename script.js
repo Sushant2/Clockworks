@@ -56,12 +56,13 @@ function updateValue(key, value) {
 
 function startTimer(){
     buttonManager(["start", false], ["pause", true], ["stop", true]);
+    freezeInputs();
 }
 
 
 function stopTimer(){
     buttonManager(["start", true], ["pause", false], ["stop", false]);
-    
+    unfreezeInputs();
 }
 
 
@@ -83,3 +84,14 @@ function buttonManager(...buttonsArray){
       }
   }
 }
+
+function freezeInputs(){
+  $("#minutes-input").attr("disabled", "disabled");
+  $("#seconds-input").attr("disabled", "disabled");
+
+}
+function unfreezeInputs(){
+  $("#minutes-input").removeAttr("disabled");
+  $("#seconds-input").removeAttr("disabled");
+}
+
