@@ -17,8 +17,9 @@
         var s = today.getSeconds();
         m = checkTime(m);
         s = checkTime(s);
+        let text = "Your current time is ➭"
         document.getElementById('txt').innerHTML =
-        h + ":" + m + ":" + s;
+       text + h + ":" + m + ":" + s;
         var t = setTimeout(startTime, 500);
       }
       function checkTime(i) {

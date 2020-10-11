@@ -73,3 +73,9 @@ h2 {
     margin: 12px 0;
     padding-left: 100px;
 }
+/*Styled the txt id*/
+
+#txt {
+    font-size: 23px;
+    font-weight: 900;
+}
