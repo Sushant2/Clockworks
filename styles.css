@@ -5,6 +5,7 @@ body, button, input {
 
 body {
     margin: 72px 140px 0;
+    background-color: rgba(131, 231, 238, 0.541);
 }
 
 h1 {
