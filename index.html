@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" href="favicon.png" />
     <title>Clockworks</title>
     <link rel="stylesheet" href="styles.css" />
     <link
@@ -17,61 +18,71 @@
         var s = today.getSeconds();
         m = checkTime(m);
         s = checkTime(s);
-        let text = "Your current time is ➭"
-        document.getElementById('txt').innerHTML =
-       text + h + ":" + m + ":" + s;
+        let text = "Your current time is ➭ ";
+        document.getElementById("time").innerHTML =
+          text + h + ":" + m + ":" + s;
         var t = setTimeout(startTime, 500);
       }
       function checkTime(i) {
-        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+        if (i < 10) {
+          i = "0" + i;
+        } // add zero in front of numbers < 10
         return i;
       }
-      </script>
-
+    </script>
   </head>
   <body onload="startTime()">
-
-    <div id="txt"></div>
-    
-    <h1>Clockworks</h1>
-
-    <section id="controls">
-      <div class="input-group">
-        <label for="minutes-input">Minutes</label>
-        <input
-          type="number"
-          placeholder="0"
-          id="minutes-input"
-          max="300"
-          min="0"
-        />
+    <div class="container">
+      <h1 id="clock">
+        <span> Clockworks </span>
+        <span id="time"></span>
+      </h1>
+      <div id="controls">
+        <div class="input-group">
+          <label for="minutes-input">Minutes</label>
+          <input
+            type="number"
+            placeholder="0"
+            id="minutes-input"
+            max="300"
+            min="0"
+          />
+        </div>
+        <div class="input-group">
+          <label for="seconds-input">Seconds</label>
+          <input
+            type="number"
+            placeholder="0"
+            id="seconds-input"
+            step="5"
+            max="59"
+            min="0"
+          />
+        </div>
+        <div class="buttons">
+          <button type="button" onclick="startTimer();" id="start-button">
+            Start
+          </button>
+          <button
+            type="button"
+            onclick="stopTimer();"
+            id="stop-button"
+            disabled
+          >
+            Stop
+          </button>
+          <button
+            type="button"
+            onclick="pauseTimer();"
+            id="pause-button"
+            disabled
+          >
+            Pause
+          </button>
+        </div>
       </div>
-
-      <div class="input-group">
-        <label for="seconds-input">Seconds</label>
-        <input
-          type="number"
-          placeholder="0"
-          id="seconds-input"
-          step="5"
-          max="59"
-          min="0"
-        />
-      </div>
-
-      <button type="button" onclick="startTimer();" id="start-button">
-        Start
-      </button>
-      <button type="button" onclick="stopTimer();" id="stop-button" disabled>
-        Stop
-      </button>
-      <button type="button" onclick="pauseTimer();" id="pause-button" disabled>
-        Pause
-      </button>
-    </section>
-
-    <h2><span id="minutes">0</span>: <span id="seconds">00</span></h2>
-
+      <h2><span id="minutes"> 0 </span>: <span id="seconds">00</span></h2>
+    </div>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="

@@ -54,6 +54,11 @@ function updateValue(key, value) {
 })("minutes")("seconds");
 
 function startTimer() {
+  let $ = (x) => document.querySelector(x);
+
+  if ($("#minutes-input").value === "" && $("#seconds-input").value === "")
+    return alert("Please, the value cannot be zero!");
+
   buttonManager(["start", false], ["pause", true], ["stop", true]);
   freezeInputs();
   timerObj.timerId = setInterval(function () {
